@@ -1,26 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to my very cool Vue.js App"/>
+  <div id="app" style="width: 100%; height: 100%;">
+      <div ref="editor" style="width: 100%; height: 100%;"></div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import * as monaco from 'monaco-editor'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+  },
+  mounted () {
+    const el = this.$refs.editor
+    monaco.editor.create(el, {
+      value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+      language: 'markdown'
+    })
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
