@@ -11,12 +11,26 @@ export default {
   name: 'App',
   components: {
   },
+  methods: {
+    textChanged (e) {
+      console.log(e)
+    }
+  },
   mounted () {
     const el = this.$refs.editor
-    monaco.editor.create(el, {
-      value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
-      language: 'markdown'
+    const editor = monaco.editor.create(el)
+    // const model = monaco.editor.createModel('foo', 'markdown', monaco.Uri)
+
+
+    editor.onDidChangeModelContent((e) => {
+      console.log(e)
     })
+    editor.getModel().onDidChangeContent((e) => {
+      const value = editor.getModel().getValue()
+      console.log(`${value}, ${e}`)
+    })
+    // const model1 = monaco.editor.getModel(monaco.Uri)
+    console.log(editor)
   }
 }
 </script>
