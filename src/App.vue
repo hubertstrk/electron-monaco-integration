@@ -1,39 +1,31 @@
 <template>
-  <div id="app" style="width: 100%; height: 100%;">
-      <div ref="editor" style="width: 100%; height: 100%;"></div>
-  </div>
+  <editor style="editor" :value="text" @event="onTextChanged" />
 </template>
 
 <script>
-import * as monaco from 'monaco-editor'
+import editor from './editor'
 
 export default {
   name: 'App',
   components: {
+    editor
   },
-  methods: {
-    textChanged (e) {
-      console.log(e)
+  data () {
+    return {
+      text: "# heading 1"
     }
   },
-  mounted () {
-    const el = this.$refs.editor
-    const editor = monaco.editor.create(el)
-    // const model = monaco.editor.createModel('foo', 'markdown', monaco.Uri)
-
-
-    editor.onDidChangeModelContent((e) => {
-      console.log(e)
-    })
-    editor.getModel().onDidChangeContent((e) => {
-      const value = editor.getModel().getValue()
-      console.log(`${value}, ${e}`)
-    })
-    // const model1 = monaco.editor.getModel(monaco.Uri)
-    console.log(editor)
+  methods: {
+    onTextChanged (text) {
+      console.log(text)
+    }
   }
 }
 </script>
 
-<style>
+<style scoped lang="css">
+.editor {
+  height: 100%;
+  width: 100%;
+}
 </style>
